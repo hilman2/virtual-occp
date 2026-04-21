@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Virtual OCPP · Station-Manager</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>🎛️ Virtual OCPP · Station Manager</h1>
+    <span class="pill muted" id="count">—</span>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>New station</h2>
+      <form id="new-form" class="grid">
+        <label>ID
+          <input name="id" required placeholder="cp1" />
+        </label>
+        <label>Port (web UI)
+          <input name="http_port" type="number" min="1" max="65535" required placeholder="8080" />
+        </label>
+        <label>OCPP version
+          <select name="version">
+            <option value="1.6">1.6-J</option>
+            <option value="2.0.1">2.0.1</option>
+          </select>
+        </label>
+        <label>CSMS URL
+          <input name="csms_url" required placeholder="ws://localhost:9000/ocpp" />
+        </label>
+        <label>Username (Basic Auth, optional)
+          <input name="username" placeholder="leave blank = no auth" autocomplete="off" />
+        </label>
+        <label>Password
+          <input name="password" type="password" placeholder="" autocomplete="new-password" />
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="autostart" checked /> Autostart on app launch
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="start_now" checked /> Start immediately
+        </label>
+        <div class="row-full">
+          <button type="submit" class="primary">Create station</button>
+        </div>
+      </form>
+      <p class="muted" id="form-err"></p>
+    </section>
+
+    <section class="card">
+      <h2>Stations</h2>
+      <table id="stations">
+        <thead>
+          <tr>
+            <th>Status</th><th>ID</th><th>Version</th><th>Port</th>
+            <th>CSMS URL</th><th>Auth</th><th>Autostart</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p class="muted" id="empty-hint"></p>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

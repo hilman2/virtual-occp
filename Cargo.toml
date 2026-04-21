@@ -1,0 +1,50 @@
+[package]
+name = "virtual-occp"
+version = "0.1.0"
+edition = "2021"
+description = "Virtuelle OCPP-Wallbox zur Simulation von Ladestationen (OCPP 1.6-J und 2.0.1)"
+license = "MIT OR Apache-2.0"
+
+[lib]
+name = "virtual_occp"
+path = "src/lib.rs"
+
+[[bin]]
+name = "virtual-occp"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { version = "1.40", features = ["full"] }
+tokio-stream = { version = "0.1", features = ["sync"] }
+tokio-tungstenite = { version = "0.24", features = ["rustls-tls-webpki-roots"] }
+futures-util = "0.3"
+axum = { version = "0.7", features = ["ws", "macros"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["cors", "trace"] }
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_with = { version = "3", features = ["chrono"] }
+
+clap = { version = "4", features = ["derive"] }
+anyhow = "1"
+thiserror = "2"
+
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+uuid = { version = "1", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+rand = "0.8"
+
+rust-embed = { version = "8", features = ["debug-embed"] }
+mime_guess = "2"
+
+url = "2"
+base64 = "0.22"
+percent-encoding = "2"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true

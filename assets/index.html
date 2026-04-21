@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Virtual OCPP Wallbox</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>⚡ Virtual OCPP Wallbox</h1>
+    <div class="header-meta">
+      <span class="pill" id="pill-version">—</span>
+      <span class="pill" id="pill-status">disconnected</span>
+      <span class="pill muted" id="pill-id">—</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Station</h2>
+      <div class="kv">
+        <div><label>ID</label><span id="stn-id">—</span></div>
+        <div><label>Vendor / Model</label><span id="stn-vendor">—</span></div>
+        <div><label>Firmware</label><span id="stn-fw">—</span></div>
+        <div><label>Serial number</label><span id="stn-serial">—</span></div>
+        <div><label>CSMS URL</label><span id="stn-csms">—</span></div>
+        <div><label>Last heartbeat</label><span id="stn-hb">—</span></div>
+      </div>
+      <div class="row">
+        <label for="hb-int">Heartbeat interval (s)</label>
+        <input id="hb-int" type="number" min="1" value="30" />
+        <button data-act="hb">Save</button>
+        <button data-act="reconnect">Reconnect</button>
+        <button data-act="boot">BootNotification</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Connectors</h2>
+      <div id="connectors"></div>
+    </section>
+
+    <section class="card">
+      <h2>Virtual RFID chips</h2>
+      <p class="muted">Present a chip at a connector to authorize a charging session.</p>
+      <div id="tags"></div>
+      <div class="row">
+        <input id="new-tag-id" placeholder="ID (hex)" />
+        <input id="new-tag-label" placeholder="Label" />
+        <select id="new-tag-status">
+          <option>Accepted</option>
+          <option>Blocked</option>
+          <option>Expired</option>
+          <option>Invalid</option>
+        </select>
+        <button data-act="addtag">Add</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Transaction history</h2>
+      <table id="history">
+        <thead><tr><th>Time</th><th>Connector</th><th>RFID</th><th>Wh</th><th>Duration</th><th>Tx id</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section class="card log-card">
+      <h2>Live log (OCPP frames &amp; events)</h2>
+      <div class="row">
+        <label><input type="checkbox" id="log-auto" checked /> Auto-scroll</label>
+        <button data-act="clearlog">Clear</button>
+      </div>
+      <pre id="log"></pre>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
